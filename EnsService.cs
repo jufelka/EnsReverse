@@ -15,9 +15,12 @@ internal class EnsService(string jsonRpc)
 			ensName = await ensService.ReverseResolveAsync(ethAddress);
 
 		}
-        catch (Exception)
+        catch (Exception ex)
         {
-            // ignored
+            if (!ex.Message.Contains("Resolver address not found"))
+            {
+                throw;
+            }
         }
 
         return ensName;
